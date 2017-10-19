@@ -1,0 +1,24 @@
+service: chatbot
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+  # stage: dev
+  # region: eu-west-2
+
+functions:
+  chatbot:
+    handler: functions/chatbot/handler.chatbot
+    environment:
+      FB_APP_TOKEN: REPLACE_BY_YOUR_APP_TOKEN
+      FB_PAGE_ACCESS_TOKEN: REPLACE_BY_YOUR_FB_PAGE_ACCESS_TOKEN
+    events:
+      - http:
+          path: chatbot
+          method: GET
+          integration: lambda
+      - http:
+          path: chatbot
+          method: POST
+          integration: lambda
